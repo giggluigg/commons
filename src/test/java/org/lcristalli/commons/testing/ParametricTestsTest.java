@@ -19,7 +19,7 @@ public class ParametricTestsTest {
     public ExpectedException expectedException = none();
 
     @Test
-    public void buildReturnsAllTestsCasesPreviouslyAdded() throws Exception {
+    public void buildReturnsAllTestsCasesPreviouslyAdded() {
         final Object[][] parametersByTestCases = {
                 {new Object(), new Object()},
                 {new Object(), new Object()},
@@ -34,7 +34,7 @@ public class ParametricTestsTest {
     }
 
     @Test
-    public void buildingWithoutTestCasesThrowsRuntimeException() throws Exception {
+    public void buildingWithoutTestCasesThrowsRuntimeException() {
         expectedException.expect(IllegalArgumentException.class);
 
         testCases().build();
