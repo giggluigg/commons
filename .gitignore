@@ -56,4 +56,6 @@ fabric.properties
 .Trash-*
 
 # .nfs files are created when an open file is removed but is still being accessed
-.nfs*
+.nfs*f
+.idea/
+/.idea/vcs.xml
