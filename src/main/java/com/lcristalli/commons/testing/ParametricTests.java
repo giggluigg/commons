@@ -1,4 +1,4 @@
-package org.lcristalli.commons.testing;
+package com.lcristalli.commons.testing;
 
 import junitparams.JUnitParamsRunner;
 
