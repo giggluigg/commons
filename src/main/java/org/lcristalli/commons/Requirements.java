@@ -35,7 +35,12 @@ public final class Requirements {
             }
 
             public PredicateBuilder and(Predicate<T> predicate) {
-                this.predicate = predicate.and(predicate);
+                this.predicate = this.predicate.and(predicate);
+                return this;
+            }
+
+            public PredicateBuilder or(Predicate<T> predicate) {
+                this.predicate = this.predicate.or(predicate);
                 return this;
             }
 

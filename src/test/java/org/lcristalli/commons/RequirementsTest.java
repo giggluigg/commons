@@ -3,7 +3,7 @@ package org.lcristalli.commons;
 import junitparams.JUnitParamsRunner;
 import junitparams.NamedParameters;
 import junitparams.Parameters;
-import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -46,15 +46,15 @@ public class RequirementsTest {
 
         expectedException.expect(sameInstance(thrownException));
 
-        require(testedString).toSatisfy(StringUtils::isNotBlank).and("passing the test"::equals).otherwiseThrow(() -> thrownException);
+        require(testedString).toSatisfy(s -> s.startsWith("a")).and(s -> s.endsWith("z")).otherwiseThrow(() -> thrownException);
     }
 
     @NamedParameters("testCasesForLogicalAnd")
     private Object[] testCasesForLogicalAnd() {
         return testCases()
-                .add("")
-                .add(" ")
-                .add("NOT passing the test")
+                .add(" z")
+                .add("a ")
+                .add(" az ")
                 .build();
     }
 
@@ -62,6 +62,35 @@ public class RequirementsTest {
     public void whenCombiningWithLogicalAndTwoPredicatesEvaluatingToTrueThenNoExceptionIsThrown() throws Exception {
         final String testedString = "passingTest";
 
-        require(testedString).toSatisfy(StringUtils::isNotBlank).and("passingTest"::equals).otherwiseThrow(RuntimeException::new);
+        require(testedString).toSatisfy(s -> s.startsWith("p")).and("passingTest"::equals).otherwiseThrow(RuntimeException::new);
+    }
+
+    @Test
+    @Parameters(named = "testCasesForLogicalOr")
+    public void whenUsingTwoPredicatesInOrWithOneOrBothPredicatesEvaluatingToTrueThenNoExceptionIsThrown(String testedString) throws Exception {
+        require(testedString).toSatisfy(s -> s.startsWith("a")).or(s -> s.endsWith("z")).otherwiseThrow(RuntimeException::new);
+    }
+
+    @NamedParameters("testCasesForLogicalOr")
+    private Object[] testCasesForLogicalOr() {
+        return testCases()
+                .add("abcz")
+                .add("ab ")
+                .add("cz")
+                .build();
+    }
+
+    @Test
+    public void whenUsingTwoPredicatesInOrWithBothEvaluatingToFalseThenTheSuppliedExceptionIsThrown() throws Exception {
+        final RuntimeException thrownException = new RuntimeException("test");
+
+        expectedException.expect(sameInstance(thrownException));
+
+        require("test").toSatisfy(s -> s.startsWith("a")).or(s -> s.startsWith("b")).otherwiseThrow(() -> thrownException);
+    }
+
+    @Test
+    public void logicalConnectorsAreAppliedInTheOrderTheyAreUsed() throws Exception {
+        Assert.fail();
     }
 }
