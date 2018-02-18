@@ -28,10 +28,15 @@ public final class Requirements {
         }
 
         public class PredicateBuilder {
-            private final Predicate<T> predicate;
+            private Predicate<T> predicate;
 
             private PredicateBuilder(Predicate<T> predicate) {
                 this.predicate = predicate;
+            }
+
+            public PredicateBuilder and(Predicate<T> predicate) {
+                this.predicate = predicate.and(predicate);
+                return this;
             }
 
             public void otherwiseThrow(Supplier<? extends RuntimeException> exception) {
