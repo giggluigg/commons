@@ -1,4 +1,4 @@
-package org.lcristalli.commons;
+package com.lcristalli.commons;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;

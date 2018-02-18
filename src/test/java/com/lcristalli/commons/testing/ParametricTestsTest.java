@@ -1,4 +1,4 @@
-package org.lcristalli.commons.testing;
+package com.lcristalli.commons.testing;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.rules.ExpectedException.none;
-import static org.lcristalli.commons.testing.ParametricTests.testCases;
+import static com.lcristalli.commons.testing.ParametricTests.testCases;
 
 /**
  * Unit tests for {@link ParametricTests}

@@ -1,5 +1,6 @@
-package org.lcristalli.commons;
+package com.lcristalli.commons;
 
+import com.lcristalli.commons.testing.ParametricTests;
 import junitparams.JUnitParamsRunner;
 import junitparams.NamedParameters;
 import junitparams.Parameters;
@@ -13,8 +14,6 @@ import java.util.function.Predicate;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.rules.ExpectedException.none;
-import static org.lcristalli.commons.Requirements.require;
-import static org.lcristalli.commons.testing.ParametricTests.testCases;
 
 /**
  * Unit tests for {@link Requirements}
@@ -31,12 +30,12 @@ public class RequirementsTest {
 
         expectedException.expect(sameInstance(thrownException));
 
-        require(new Object()).toSatisfy(Objects::isNull).otherwiseThrow(() -> thrownException);
+        Requirements.require(new Object()).toSatisfy(Objects::isNull).otherwiseThrow(() -> thrownException);
     }
 
     @Test
     public void ifPredicateIsTrueOnObjectThenNoExceptionIsThrown() {
-        require(new Object()).toSatisfy(Objects::nonNull).otherwiseThrow(RuntimeException::new);
+        Requirements.require(new Object()).toSatisfy(Objects::nonNull).otherwiseThrow(RuntimeException::new);
     }
 
     @Test
@@ -46,12 +45,12 @@ public class RequirementsTest {
 
         expectedException.expect(sameInstance(thrownException));
 
-        require(testedString).toSatisfy(s -> s.startsWith("a")).and(s -> s.endsWith("z")).otherwiseThrow(() -> thrownException);
+        Requirements.require(testedString).toSatisfy(s -> s.startsWith("a")).and(s -> s.endsWith("z")).otherwiseThrow(() -> thrownException);
     }
 
     @NamedParameters("testCasesForLogicalAnd")
     private Object[] testCasesForLogicalAnd() {
-        return testCases()
+        return ParametricTests.testCases()
                 .add(" z")
                 .add("a ")
                 .add(" az ")
@@ -62,18 +61,18 @@ public class RequirementsTest {
     public void whenCombiningWithLogicalAndTwoPredicatesEvaluatingToTrueThenNoExceptionIsThrown() {
         final String testedString = "passingTest";
 
-        require(testedString).toSatisfy(s -> s.startsWith("p")).and("passingTest"::equals).otherwiseThrow(RuntimeException::new);
+        Requirements.require(testedString).toSatisfy(s -> s.startsWith("p")).and("passingTest"::equals).otherwiseThrow(RuntimeException::new);
     }
 
     @Test
     @Parameters(named = "testCasesForLogicalOr")
     public void whenUsingTwoPredicatesInOrWithOneOrBothPredicatesEvaluatingToTrueThenNoExceptionIsThrown(String testedString) {
-        require(testedString).toSatisfy(s -> s.startsWith("a")).or(s -> s.endsWith("z")).otherwiseThrow(RuntimeException::new);
+        Requirements.require(testedString).toSatisfy(s -> s.startsWith("a")).or(s -> s.endsWith("z")).otherwiseThrow(RuntimeException::new);
     }
 
     @NamedParameters("testCasesForLogicalOr")
     private Object[] testCasesForLogicalOr() {
-        return testCases()
+        return ParametricTests.testCases()
                 .add("abcz")
                 .add("ab ")
                 .add("cz")
@@ -86,7 +85,7 @@ public class RequirementsTest {
 
         expectedException.expect(sameInstance(thrownException));
 
-        require("test").toSatisfy(s -> s.startsWith("a")).or(s -> s.startsWith("b")).otherwiseThrow(() -> thrownException);
+        Requirements.require("test").toSatisfy(s -> s.startsWith("a")).or(s -> s.startsWith("b")).otherwiseThrow(() -> thrownException);
     }
 
     /**
@@ -111,7 +110,7 @@ public class RequirementsTest {
 
         expectedException.expect(RuntimeException.class);
 
-        require(testedString)
+        Requirements.require(testedString)
                 .toSatisfy(s -> s.startsWith("t"))
                 .or(s -> s.startsWith("a"))
                 .and(s -> s.startsWith("b"))
