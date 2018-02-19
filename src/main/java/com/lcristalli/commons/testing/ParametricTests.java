@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * Simple builder that can be used in combination with {@link JUnitParamsRunner}
+ * <p>
  *
  * Example of usage:
- *
+ * <p>
  * {@code ParametricTests.testCases().add(parameter1, parameter2).build()}
- *
+ * <p>
  * It expects at least 1 test case, otherwise an exception is thrown. See {@link #build()}
  */
 public final class ParametricTests {
@@ -35,7 +36,7 @@ public final class ParametricTests {
      *
      * @param parameters    the {@code parameters} used in the test case
      *
-     * @return  {@code this} instance, to continue adding test cases, if desired
+     * @return  The same instance of {@link ParametricTests} to continue adding test cases, if desired
      */
     public ParametricTests add(Object... parameters) {
         testCases.add(parameters);
