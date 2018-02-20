@@ -10,8 +10,8 @@ import java.util.function.Supplier;
  * Typical usage will look like:
  * <pre>
  * {@code Requirements.require(object)
- *          .toSatisfy(aJavaPredicateExpectedToBeTrue)
- *          .otherwiseThrow(() -> new RuntimeException("Error")}
+ *           .toSatisfy(aJavaPredicateExpectedToBeTrue)
+ *           .otherwiseThrow(() -> new RuntimeException("Error")}
  * </pre>
  */
 public final class Requirements {
