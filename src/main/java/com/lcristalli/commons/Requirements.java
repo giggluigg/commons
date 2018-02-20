@@ -103,7 +103,8 @@ public final class Requirements {
              * <br>
              * This is the {@code Step 3} of the building process, the last one.
              *
-             * @param exception the {@link RuntimeException} that must be throw if the test on the object returns {@code false}
+             * @param exception A {@link Supplier} of the {@link RuntimeException} that must be thrown
+             *                  if the test on the object returns {@code false}
              */
             public void otherwiseThrow(Supplier<? extends RuntimeException> exception) {
                 if (!predicate.test(theObjectToTest)) {
