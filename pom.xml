@@ -9,7 +9,7 @@
     <version>0.1.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>com.lcristalli:commons</name>
     <description>A personal collection of reusable code</description>
     <url>https://github.com/giggluigg/commons</url>
 
@@ -48,6 +48,7 @@
             <groupId>pl.pragmatists</groupId>
             <artifactId>JUnitParams</artifactId>
             <version>${JUnitParams.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

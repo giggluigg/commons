@@ -1,19 +1,22 @@
 package com.lcristalli.commons.testing;
 
-import junitparams.JUnitParamsRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple builder that can be used in combination with {@link JUnitParamsRunner}
+ * Simple builder that can be used in combination with JUnitParamsRunner.
  * <p>
  *
  * Example of usage:
- * <p>
- * {@code ParametricTests.testCases().add(parameter1, parameter2).build()}
- * <p>
- * It expects at least 1 test case, otherwise an exception is thrown. See {@link #build()}
+ * <pre>
+ * {@code ParametricTests.testCases()
+ *           .add(parameter1ForCase1, parameter2ForCase1)
+ *           .add(parameter1ForCase2, parameter2ForCase2)
+ *           .build()}
+ * </pre>
+ * It expects at least 1 test case, otherwise an {@link IllegalArgumentException} is thrown.
+ *
+ * @see <a href="https://github.com/Pragmatists/JUnitParams">https://github.com/Pragmatists/JUnitParams</a>
  */
 public final class ParametricTests {
     private final List<Object[]> testCases = new ArrayList<>();
